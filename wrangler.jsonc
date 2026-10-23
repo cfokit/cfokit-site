@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cfokit-site-edge",
+  "main": "edge/worker.ts",
+  "compatibility_date": "2026-10-01",
+  // The Worker runs in front of the site's own domain, whose DNS record is proxied by Cloudflare and
+  // points at GitHub Pages. The domain is cfokit.ai.
+  "routes": [{ "pattern": "cfokit.ai/*", "zone_name": "cfokit.ai" }],
+  "observability": { "enabled": true }
+}
