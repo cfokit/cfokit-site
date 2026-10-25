@@ -2,18 +2,29 @@ import { defineConfig } from '@cmokit/cli';
 
 export default defineConfig({
   analytics: {
-    // Your PostHog project key (Project settings → Project API key). It is public by design.
-    posthog: { key: 'phc_wkgSar6MctDW3eKuB56jD298N5wvMnGwRr8Gyw75ejEv', host: 'https://us.i.posthog.com' },
+    posthog: {
+      // Your PostHog project key (Project settings → Project API key). It is public by design.
+      key: 'phc_wkgSar6MctDW3eKuB56jD298N5wvMnGwRr8Gyw75ejEv',
+      host: 'https://us.i.posthog.com',
+      // Your project's id (Project settings → Project ID), which the deploy needs to create, start
+      // and end the experiments below in PostHog.
+      project: 687261,
+    },
   },
   experiments: [
     {
-      // A multivariate feature flag in PostHog with variants `control` and `b`, attached to an
-      // experiment whose goal is the `signup` event.
+      // The experiment's feature flag. The deploy creates it, and the experiment, in PostHog.
       flag: 'landing',
       // The page under experiment. It is the control.
       path: '/',
       // Every other variant, as the page that holds it.
       variants: { b: '/variants/landing/b/' },
+      // The conversion event that decides the experiment: a form's `data-cmokit-convert`.
+      goal: 'signup',
+      // `draft` serves everyone the page itself; `running` assigns visitors their variants; `ended`
+      // serves everyone the page itself again. The deploy starts and ends the experiment in PostHog
+      // to match. Optional: `split: { control: 50, b: 50 }`, which defaults to even.
+      status: 'draft',
     },
   ],
 });
