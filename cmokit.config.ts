@@ -3,7 +3,7 @@ import { defineConfig } from '@cmokit/cli';
 export default defineConfig({
   analytics: {
     // Your PostHog project key (Project settings → Project API key). It is public by design.
-    posthog: { key: 'phc_REPLACE_ME', host: 'https://us.i.posthog.com' },
+    posthog: { key: 'phc_wkgSar6MctDW3eKuB56jD298N5wvMnGwRr8Gyw75ejEv', host: 'https://us.i.posthog.com' },
   },
   experiments: [
     {
