@@ -11,20 +11,7 @@ export default defineConfig({
       project: 687261,
     },
   },
-  experiments: [
-    {
-      // The experiment's feature flag. The deploy creates it, and the experiment, in PostHog.
-      flag: 'landing',
-      // The page under experiment. It is the control.
-      path: '/',
-      // Every other variant, as the page that holds it.
-      variants: { b: '/variants/landing/b/' },
-      // The conversion event that decides the experiment: a form's `data-cmokit-convert`.
-      goal: 'signup',
-      // `draft` serves everyone the page itself; `running` assigns visitors their variants; `ended`
-      // serves everyone the page itself again. The deploy starts and ends the experiment in PostHog
-      // to match. Optional: `split: { control: 50, b: 50 }`, which defaults to even.
-      status: 'draft',
-    },
-  ],
+  // No experiments yet: the site launches with one home page. To test a page, add an experiment
+  // here (see CLAUDE.md). The deploy archives the starter's draft `landing` experiment in PostHog.
+  experiments: [],
 });

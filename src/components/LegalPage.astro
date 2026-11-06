@@ -1,0 +1,28 @@
+---
+// A legal page that is still a draft: its sections, under a notice that it is not in effect.
+// Bracketed text is for counsel to write.
+import Page from '../layouts/Page.astro';
+import Notice from './Notice.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  sections: { heading: string; body: string }[];
+}
+const { title, description, sections } = Astro.props;
+---
+
+<Page title={`${title}: CFOKit`} description={description}>
+  <article class="flex max-w-reading-max flex-col gap-6 py-10">
+    <h1 class="font-display text-display-compact tablet:text-display">{title}</h1>
+    <Notice tone="warning" label="Draft for legal review. Not in effect.">
+      Placeholder structure only. Bracketed items are for counsel to write.
+    </Notice>
+    {sections.map((section) => (
+      <section class="flex flex-col gap-2 border-t border-rule pt-4">
+        <h2 class="text-title">{section.heading}</h2>
+        <p>{section.body}</p>
+      </section>
+    ))}
+  </article>
+</Page>

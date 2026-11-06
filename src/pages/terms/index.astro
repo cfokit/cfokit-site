@@ -1,0 +1,32 @@
+---
+// Terms of use: a draft for legal review, not in effect.
+import LegalPage from '../../components/LegalPage.astro';
+
+const sections = [
+  {
+    heading: 'Who these terms are with',
+    body: 'These terms are an agreement between you and Growth Science LLC, which operates CFOKit at cfokit.ai and app.cfokit.ai.',
+  },
+  {
+    heading: 'What they cover',
+    body: 'The cfokit.ai website, the hosted CFOKit service and its waitlist. The CFOKit software itself is open source, and the Apache 2.0 license, not these terms, governs your use of the code when you run it yourself.',
+  },
+  {
+    heading: 'Your account and your books',
+    body: 'The account belongs to your company. Your books and the data in them are yours, and you can export them at any time. [To add: our limited permission to process your data to run the service.]',
+  },
+  {
+    heading: 'The waitlist',
+    body: 'Joining the waitlist means we may email you about hosted CFOKit. It is not a commitment from either side. [To add: how to leave the list.]',
+  },
+  { heading: 'Acceptable use', body: '[To add: what you may not do with the hosted service.]' },
+  {
+    heading: 'Not professional advice',
+    body: '[To add: CFOKit keeps books and is not a substitute for a licensed accountant or tax adviser.]',
+  },
+  { heading: 'Warranty and liability', body: '[To add: warranty disclaimer and limitation of liability, written by counsel.]' },
+  { heading: 'Changes and contact', body: '[To add: how we tell you about changes, governing law, and a contact address.]' },
+];
+---
+
+<LegalPage title="Terms of use" description="The terms for the cfokit.ai website and hosted CFOKit. Draft, not in effect." sections={sections} />

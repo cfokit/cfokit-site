@@ -3,6 +3,16 @@
 An Astro site on GitHub Pages, with a CMOkit edge (a Cloudflare Worker) in front of it that runs
 landing-page experiments on PostHog.
 
+## Design system and copy
+
+- The site uses the CFOKit design system from `cfokit/cfokit`. `src/design` is a copy made by
+  `npm run design:sync -- <path to a cfokit checkout>`; never edit it here. `src/components` mirrors
+  the web app's components with the same Tailwind classes, using only the theme's tokens.
+- Copy follows the CFOKit brand book: sentence case, plain English, no exclamation marks, no emoji,
+  no em dashes. Say nothing on the site that the product or its repository doesn't bear out.
+- There are no experiments yet. Adding one starts with a variant page and an entry in
+  `cmokit.config.ts`, as below.
+
 ## Experiments
 
 - `cmokit.config.ts` lists each experiment: its PostHog flag, the page under experiment (which is

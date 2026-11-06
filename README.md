@@ -1,27 +1,24 @@
-# A CMOkit site
+# cfokit.ai
 
-A static Astro site with landing-page experiments, made with `npm create cmokit`.
+The CFOKit marketing site: a static Astro site on GitHub Pages, with a CMOkit edge (a Cloudflare
+Worker) in front of it that records sign-ups and runs landing-page experiments on PostHog.
 
-## Set up
+## Pages
 
-1. **PostHog.** Create a project and put its project key and project id in `cmokit.config.ts`.
-   Create a personal API key scoped to that project, with `experiment:write`,
-   `feature_flag:write`, `query:read` and `experiment_saved_metric:read`, and add it to the
-   repository as the secret `POSTHOG_PERSONAL_API_KEY`.
-   Every deploy then makes PostHog's experiments match `cmokit.config.ts`: you never set one up
-   in PostHog.
-2. **GitHub Pages.** Push this repository to GitHub. Under Settings → Pages, set the source to
-   GitHub Actions and the custom domain to your domain. Add that domain to `public/CNAME`.
-3. **Cloudflare.** Point your domain's DNS at GitHub Pages with the record proxied, and set SSL/TLS
-   to Full. Set the route in `wrangler.jsonc` to your domain. Add the repository variable
-   `CLOUDFLARE_ACCOUNT_ID` and the secret `CLOUDFLARE_API_TOKEN`.
+- `/`: for founders. The hosted waitlist (`hosted_signup`), using CFOKit today from your own Claude
+  with an account at app.cfokit.ai, and running it yourself.
+- `/self-host/`: for developers and contributors, with a release-email form (`releases_signup`).
+- `/privacy/` and `/terms/`: drafts for legal review, marked as not in effect.
 
-A push to `main` then deploys the site and the edge, and creates the `landing` experiment in
-PostHog as a draft. To start it, change its `status` to `running` in a pull request, and merge it.
-`npx cmokit experiments plan` estimates how long it must run first, and
-`npx cmokit experiments results` reads how it is doing; both read the key from
-`POSTHOG_PERSONAL_API_KEY` in your shell. A coding agent started in this directory finds the same
-as tools of the `cmokit` MCP server in `.mcp.json`.
+A form with an email field records its event, and the address, on the visitor's person in PostHog.
+
+## Design system
+
+The look is the CFOKit design system from `cfokit/cfokit`, not one of the site's own:
+`src/design` holds its theme, fonts and brand marks, copied by `npm run design:sync -- <path to a
+cfokit checkout>`, which records the commit in `src/design/SOURCE`. `src/components` mirrors the few
+web components the site needs, with the same classes. Change the design system in `cfokit/cfokit`,
+then sync; never edit `src/design` here.
 
 ## Work on it
 
@@ -30,4 +27,4 @@ npm install
 npm run dev
 ```
 
-See `CLAUDE.md` for how experiments and variants work.
+See `CLAUDE.md` for how experiments, variants and deployment work.

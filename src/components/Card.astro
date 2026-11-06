@@ -1,0 +1,19 @@
+---
+// The CFOKit Card (web/src/components/Card.tsx in cfokit/cfokit). `featured` marks the one offer a
+// page leads with.
+interface Props {
+  featured?: boolean;
+  class?: string;
+}
+const { featured = false, class: extra } = Astro.props;
+---
+
+<div
+  class:list={[
+    'flex flex-col gap-4 rounded-lg bg-surface p-6',
+    featured ? 'border-2 border-accent' : 'border border-rule',
+    extra,
+  ]}
+>
+  <slot />
+</div>
