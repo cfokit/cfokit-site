@@ -1,0 +1,27 @@
+---
+// The CFOKit Button (web/src/components/Button.tsx in cfokit/cfokit), with the same classes. With an
+// `href` it is a link that looks like a button.
+interface Props {
+  variant?: 'primary' | 'secondary' | 'link';
+  fullWidth?: boolean;
+  href?: string;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+const { variant = 'secondary', fullWidth = false, href, type = 'button', class: extra } = Astro.props;
+const VARIANTS = {
+  primary:
+    'rounded-md border border-accent bg-accent px-6 font-semibold text-on-accent hover:border-accent-hover hover:bg-accent-hover',
+  secondary: 'rounded-md border border-control-border bg-surface px-6 font-semibold text-ink hover:bg-sunken',
+  link: 'px-3 text-accent underline underline-offset-3 hover:text-accent-hover',
+};
+const classes = [
+  'inline-flex min-h-target-min cursor-pointer items-center justify-center gap-2 text-body',
+  VARIANTS[variant],
+  variant === 'link' ? '' : 'no-underline',
+  fullWidth ? 'w-full' : '',
+  extra,
+].filter(Boolean).join(' ');
+---
+
+{href ? <a href={href} class={classes}><slot /></a> : <button type={type} class={classes}><slot /></button>}

@@ -1,0 +1,15 @@
+---
+// The CFOKit Notice (web/src/components/Notice.tsx in cfokit/cfokit), as it renders on page load.
+interface Props {
+  tone: 'neutral' | 'success' | 'warning' | 'danger';
+  label: string;
+}
+const { tone, label } = Astro.props;
+const BORDER = { neutral: 'border-control-border', success: 'border-success', warning: 'border-warning', danger: 'border-danger' };
+const LABEL = { neutral: 'text-ink', success: 'text-success', warning: 'text-warning', danger: 'text-danger' };
+---
+
+<div class={`flex flex-col gap-2 rounded-md border bg-surface p-4 ${BORDER[tone]}`}>
+  <p class={`text-label ${LABEL[tone]}`}>{label}</p>
+  <div class="max-w-reading-max text-body text-ink"><slot /></div>
+</div>

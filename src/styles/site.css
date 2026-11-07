@@ -1,0 +1,31 @@
+/* The CFOKit design system (src/design, synced from cfokit/cfokit) on Tailwind 4, and the page
+   itself as the web app sets it: ledger paper, ink, Public Sans at body size, a focus ring on
+   everything interactive. */
+@import "tailwindcss";
+@import "../design/theme.css";
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply bg-paper font-sans text-body text-ink;
+  }
+
+  :focus-visible {
+    outline: var(--stroke-focus) solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* A signup form hides once CMOkit has recorded it, and the thanks after it shows. */
+  form[data-cmokit-state="done"] {
+    display: none;
+  }
+  form[data-cmokit-state="done"] + [data-thanks] {
+    display: block;
+  }
+  [data-thanks] {
+    display: none;
+  }
+}

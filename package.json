@@ -7,15 +7,18 @@
     "build": "astro build",
     "preview": "astro preview",
     "edge:dev": "wrangler dev",
-    "edge:deploy": "wrangler deploy"
+    "edge:deploy": "wrangler deploy",
+    "design:sync": "sh scripts/sync-design.sh"
   },
   "dependencies": {
-    "@cmokit/astro": "^0.2.0",
-    "@cmokit/cli": "^0.2.0",
-    "@cmokit/edge": "^0.2.1",
+    "@cmokit/astro": "^0.3.0",
+    "@cmokit/cli": "^0.3.0",
+    "@cmokit/edge": "^0.3.0",
     "astro": "^7.4.2"
   },
   "devDependencies": {
-    "wrangler": "^4.152.0"
+    "wrangler": "^4.152.0",
+    "tailwindcss": "4.3.3",
+    "@tailwindcss/vite": "4.3.3"
   }
 }

@@ -1,0 +1,30 @@
+---
+// The CFOKit TextField (web/src/components/TextField.tsx in cfokit/cfokit), with the same classes.
+interface Props {
+  id: string;
+  label: string;
+  help?: string;
+  type?: string;
+  name?: string;
+  autocomplete?: string;
+  placeholder?: string;
+  required?: boolean;
+}
+const { id, label, help, type = 'text', name, autocomplete, placeholder, required } = Astro.props;
+const helpId = help ? `${id}-help` : undefined;
+---
+
+<div class="flex flex-col gap-2">
+  <label for={id} class="text-label text-ink">{label}</label>
+  <input
+    id={id}
+    type={type}
+    name={name}
+    autocomplete={autocomplete}
+    placeholder={placeholder}
+    required={required}
+    aria-describedby={helpId}
+    class="min-h-target-min w-full rounded-sm border border-control-border bg-surface px-3 text-input text-ink"
+  />
+  {help && <p id={helpId} class="text-caption text-ink-muted">{help}</p>}
+</div>
