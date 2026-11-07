@@ -5,8 +5,10 @@ Worker) in front of it that records sign-ups and runs landing-page experiments o
 
 ## Pages
 
-- `/`: for founders. The hosted waitlist (`hosted_signup`), using CFOKit today from your own Claude
-  with an account at app.cfokit.ai, and running it yourself.
+- `/`: during the closed beta. Running CFOKit yourself, contributing, and a closed beta signup
+  (`beta_signup`). The hosted offers (the hosted waitlist and using CFOKit from your own Claude
+  with an account at app.cfokit.ai) wait on the `hosted-offers` branch until hosted CFOKit is
+  ready for users.
 - `/self-host/`: for developers and contributors, with a release-email form (`releases_signup`).
 - `/privacy/` and `/terms/`: drafts for legal review, marked as not in effect.
 

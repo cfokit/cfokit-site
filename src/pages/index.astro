@@ -1,11 +1,14 @@
 ---
-// The home page, for founders: the hosted waitlist first, then using CFOKit from your own Claude
-// today, then running it yourself.
+// The home page during the closed beta: run CFOKit yourself or help build it, and leave an email to
+// be part of the closed beta. The hosted offers wait on the hosted-offers branch until hosted
+// CFOKit is ready for users.
 import Page from '../layouts/Page.astro';
 import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
+import Notice from '../components/Notice.astro';
 import TextField from '../components/TextField.astro';
 
+const repo = 'https://github.com/cfokit/cfokit';
 const label = 'text-label text-accent';
 const sectionHeading = 'font-display text-heading-compact tablet:text-heading';
 const points = [
@@ -30,59 +33,65 @@ const points = [
 
 <Page
   title="CFOKit: your books, done for you"
-  description="CFOKit does the bookkeeper's and the controller's work for your company. Join the waitlist for hosted CFOKit, use it today from your own Claude, or run it yourself."
+  description="CFOKit is an open source bookkeeper agent for your company. Run it yourself, help build it, or join the closed beta."
 >
   <section class="flex max-w-reading-max flex-col gap-4 pt-10 pb-10 tablet:pt-[64px]">
-    <p class="text-label text-ink-muted">Bookkeeping for founders</p>
+    <p class="text-label text-ink-muted">Open source bookkeeping, in closed beta</p>
     <h1 class="font-display text-display-compact tablet:text-display">Your books, done for you.</h1>
     <p class="text-title font-normal">
-      CFOKit does the bookkeeper's and the controller's work for your company. You decide how much
-      control to keep: let us run it, work from your own Claude, or host it yourself. Everything it
-      learns about your business exports with your books, any time.
+      CFOKit is a bookkeeper agent that does the bookkeeper's and the controller's work for your
+      company. It's open source, so you can run it on your own machine, read every line, and take
+      everything it learns about your business with you.
     </p>
+    <div class="flex flex-wrap gap-3">
+      <Button variant="primary" href="/self-host/">Run it yourself</Button>
+      <Button href={repo}>View on GitHub</Button>
+    </div>
   </section>
 
-  <section id="waitlist" class="flex flex-wrap gap-6 pb-10">
+  <section class="pb-10">
+    <Notice tone="warning" label="Early software">
+      CFOKit isn't ready to keep a company's real books yet. Try it alongside the bookkeeping you
+      already have, and tell us what breaks.
+    </Notice>
+  </section>
+
+  <section class="flex flex-wrap gap-6 pb-10">
     <Card featured class="min-w-0 flex-[1_1_340px]">
-      <p class={label}>Hosted, nothing to install</p>
-      <h2 class="text-title">A bookkeeper agent that keeps your books for you.</h2>
+      <p class={label}>Run it yourself</p>
+      <h2 class="text-title">The whole product on your machine.</h2>
+      <p>Apache 2.0, with no cloud account and no signup. You need Docker and nothing else.</p>
+      <pre class="rounded-sm bg-sunken px-4 py-3 text-body break-words whitespace-pre-wrap"><code>docker compose up -d --wait</code></pre>
+      <Button href="/self-host/" class="self-start">See how to self-host</Button>
+    </Card>
+
+    <Card class="min-w-0 flex-[1_1_340px]">
+      <p class={label}>Build it with us</p>
+      <h2 class="text-title">Add your bank, your state, your fix.</h2>
       <p>
-        It maintains your books on its own and comes to you when it needs your guidance. You oversee
-        the work, and we run everything.
+        Banks, payment providers and state compliance rules plug in behind stable extension points,
+        so a contribution lands without a rewrite.
       </p>
-      <form data-cmokit-convert="hosted_signup" class="flex flex-col gap-4">
+      <Button href={`${repo}/blob/main/CONTRIBUTING.md`} class="self-start">How to contribute</Button>
+    </Card>
+
+    <Card id="beta" class="min-w-0 flex-[1_1_340px]">
+      <p class={label}>Closed beta</p>
+      <h2 class="text-title">Want in when it's ready?</h2>
+      <p>We're opening CFOKit to a small group of companies first. Leave your email and we'll be in touch.</p>
+      <form data-cmokit-convert="beta_signup" class="flex flex-col gap-4">
         <TextField
-          id="waitlist-email"
+          id="beta-email"
           label="Work email"
           type="email"
           name="email"
           autocomplete="email"
           placeholder="you@company.com"
-          help="We'll email you when hosted CFOKit opens for your company."
           required
         />
-        <Button variant="primary" type="submit" fullWidth>Join the waitlist</Button>
+        <Button variant="primary" type="submit" fullWidth>Join the closed beta</Button>
       </form>
-      <p data-thanks role="status" class="text-body">Thanks. You're on the list, and we'll email you when it opens.</p>
-    </Card>
-
-    <Card class="min-w-0 flex-[1_1_340px]">
-      <p class={label}>Available now</p>
-      <h2 class="text-title">Use it today from your own Claude.</h2>
-      <p>
-        Create a hosted account, then add the CFOKit plugin and connector to Claude desktop or
-        claude.ai. Your Claude keeps the books. We run the ledger.
-      </p>
-      <Button href="https://app.cfokit.ai" class="self-start">Create your account</Button>
-      <Button variant="link" href="https://github.com/cfokit/cfokit/blob/main/docs/how-to/connect-claude.md" class="self-start px-0">How to connect Claude</Button>
-    </Card>
-
-    <Card class="min-w-0 flex-[1_1_340px]">
-      <p class={label}>Self-hosted</p>
-      <h2 class="text-title">Run it yourself, free.</h2>
-      <p>The same software, Apache 2.0 licensed. It runs on your laptop with no cloud account and no signup.</p>
-      <pre class="rounded-sm bg-sunken px-4 py-3 text-body break-words whitespace-pre-wrap"><code>docker compose up -d --wait</code></pre>
-      <Button href="/self-host/" class="self-start">See how to self-host</Button>
+      <p data-thanks role="status" class="text-body">Thanks. We'll email you when there's a place for your company.</p>
     </Card>
   </section>
 
@@ -107,21 +116,22 @@ const points = [
       </li>
       <li class="flex gap-4">
         <span class="font-display text-heading text-ochre">2</span>
-        <span><strong>Add the connector</strong> and sign in with your CFOKit account.</span>
+        <span><strong>Point the connector at your CFOKit</strong> and sign in.</span>
       </li>
       <li class="flex gap-4">
         <span class="font-display text-heading text-ochre">3</span>
         <span><strong>Allow Claude in your company,</strong> then bring your books in.</span>
       </li>
     </ol>
+    <Button variant="link" href={`${repo}/blob/main/docs/how-to/connect-claude.md`} class="self-start px-0">How to connect Claude</Button>
   </section>
 
   <section class="flex flex-col items-start gap-4 border-t border-rule pt-10 pb-10 tablet:pb-[64px]">
     <h2 class={sectionHeading}>Your company owns its books</h2>
     <p class="max-w-reading-max">
-      Hosted or on your own machine, the account belongs to your company, never to its accountant or
-      its fractional CFO. They work inside it at your invitation.
+      The account belongs to your company, never to its accountant or its fractional CFO. They work
+      inside it at your invitation, and everything exports, any time.
     </p>
-    <Button variant="primary" href="#waitlist">Join the waitlist</Button>
+    <Button variant="primary" href="/self-host/">Run it yourself</Button>
   </section>
 </Page>

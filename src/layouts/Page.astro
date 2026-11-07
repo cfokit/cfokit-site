@@ -8,10 +8,10 @@ import icon from '../design/brand/cfokit-icon.svg';
 interface Props {
   title: string;
   description: string;
-  /** The header's main action. The home page's waitlist is the default. */
+  /** The header's main action. The home page's closed beta signup is the default. */
   action?: { label: string; href: string };
 }
-const { title, description, action = { label: 'Join the waitlist', href: '/#waitlist' } } = Astro.props;
+const { title, description, action = { label: 'Join the closed beta', href: '/#beta' } } = Astro.props;
 const year = new Date().getFullYear();
 const nav = 'inline-flex min-h-target-min items-center px-3 font-semibold text-accent no-underline hover:text-accent-hover';
 ---
@@ -37,7 +37,6 @@ const nav = 'inline-flex min-h-target-min items-center px-3 font-semibold text-a
         <nav aria-label="Main" class="ml-auto flex flex-wrap items-center gap-1">
           <a href="/self-host/" class={nav}>Self-host</a>
           <a href="https://github.com/cfokit/cfokit" class={nav}>GitHub</a>
-          <a href="https://app.cfokit.ai" class={nav}>Sign in</a>
           <a
             href={action.href}
             class="inline-flex min-h-target-min items-center rounded-md border border-accent bg-accent px-4 font-semibold text-on-accent no-underline hover:border-accent-hover hover:bg-accent-hover"
