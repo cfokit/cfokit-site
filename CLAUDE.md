@@ -43,8 +43,17 @@ landing-page experiments on PostHog.
   zero. All of them read `POSTHOG_PERSONAL_API_KEY` from the shell; if it is not set, ask the person
   to set it there. Never ask for the key itself.
 
+## Messages
+
+- A closed beta signup (`beta_signup`) starts the `beta-welcome` sequence in `cmokit.config.ts`: one
+  email, `messages/welcome.md`, sent at once from hello@cfokit.ai through SendGrid. Replies go to
+  the hello@ Workspace group.
+- A message is markdown with a `subject` in its front matter, written to the same copy rules as the
+  site. The lifecycle adds the unsubscribe link and the postal address.
+
 ## Deployment
 
-A push to `main` builds the site, deploys it to GitHub Pages, deploys the edge with
+A push to `main` builds the site, deploys it to GitHub Pages, deploys the lifecycle Worker
+(`lifecycle/`, which sends leads the messages in `messages/`) and then the edge with
 `wrangler deploy`, and then makes PostHog's experiments match `cmokit.config.ts`. The Worker's
 route is in `wrangler.jsonc`.
