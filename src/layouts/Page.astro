@@ -1,8 +1,19 @@
 ---
+// Every page: the CFOKit header and footer around the page's content, in the CFOKit design system.
+import '../styles/site.css';
+import lockup from '../design/brand/cfokit-lockup.svg';
+import lockupDark from '../design/brand/cfokit-lockup-dark.svg';
+import icon from '../design/brand/cfokit-icon.svg';
+
 interface Props {
   title: string;
+  description: string;
+  /** The header's main action. The home page's closed beta signup is the default. */
+  action?: { label: string; href: string };
 }
-const { title } = Astro.props;
+const { title, description, action = { label: 'Join the closed beta', href: '/#beta' } } = Astro.props;
+const year = new Date().getFullYear();
+const nav = 'inline-flex min-h-target-min items-center px-3 font-semibold text-accent no-underline hover:text-accent-hover';
 ---
 
 <!doctype html>
@@ -11,17 +22,43 @@ const { title } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <style>
-      body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 4rem auto; padding: 0 1rem; line-height: 1.5; }
-      form { display: flex; gap: 0.5rem; margin-top: 2rem; }
-      input { flex: 1; padding: 0.5rem; }
-      button { padding: 0.5rem 1rem; }
-      form[data-cmokit-state='done'] { display: none; }
-      form[data-cmokit-state='done'] + .thanks { display: block; }
-      .thanks { display: none; }
-    </style>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={icon.src} />
   </head>
   <body>
-    <slot />
+    <header class="border-b border-rule bg-surface">
+      <div class="mx-auto flex min-h-bar-height max-w-content-max flex-wrap items-center gap-4 px-gutter-phone py-2 tablet:px-gutter-tablet desktop:px-gutter-desktop">
+        <a href="/" aria-label="CFOKit home" class="block">
+          <picture>
+            <source srcset={lockupDark.src} media="(prefers-color-scheme: dark)" />
+            <img src={lockup.src} alt="CFOKit" class="block h-8 w-auto" />
+          </picture>
+        </a>
+        <nav aria-label="Main" class="ml-auto flex flex-wrap items-center gap-1">
+          <a href="/self-host/" class={nav}>Self-host</a>
+          <a href="https://github.com/cfokit/cfokit" class={nav}>GitHub</a>
+          <a
+            href={action.href}
+            class="inline-flex min-h-target-min items-center rounded-md border border-accent bg-accent px-4 font-semibold text-on-accent no-underline hover:border-accent-hover hover:bg-accent-hover"
+          >{action.label}</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-content-max px-gutter-phone tablet:px-gutter-tablet desktop:px-gutter-desktop">
+      <slot />
+    </main>
+
+    <footer class="border-t border-rule bg-surface">
+      <div class="mx-auto flex max-w-content-max flex-wrap items-center gap-x-6 gap-y-4 px-gutter-phone py-6 text-caption text-ink-muted tablet:px-gutter-tablet desktop:px-gutter-desktop">
+        <img src={icon.src} alt="" aria-hidden="true" class="h-6 w-6" />
+        <span>CFOKit is open source under Apache 2.0.</span>
+        <a href="https://github.com/cfokit/cfokit" class="text-accent hover:text-accent-hover">GitHub</a>
+        <a href="/self-host/" class="text-accent hover:text-accent-hover">Self-host</a>
+        <a href="/privacy/" class="text-accent hover:text-accent-hover">Privacy</a>
+        <a href="/terms/" class="text-accent hover:text-accent-hover">Terms of use</a>
+        <span class="tablet:ml-auto">© {year} Growth Science LLC</span>
+      </div>
+    </footer>
   </body>
 </html>

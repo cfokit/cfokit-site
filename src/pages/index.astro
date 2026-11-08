@@ -1,14 +1,137 @@
 ---
-// The page under the `landing` experiment, and its control variant.
+// The home page during the closed beta: run CFOKit yourself or help build it, and leave an email to
+// be part of the closed beta. The hosted offers wait on the hosted-offers branch until hosted
+// CFOKit is ready for users.
 import Page from '../layouts/Page.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import Notice from '../components/Notice.astro';
+import TextField from '../components/TextField.astro';
+
+const repo = 'https://github.com/cfokit/cfokit';
+const label = 'text-label text-accent';
+const sectionHeading = 'font-display text-heading-compact tablet:text-heading';
+const points = [
+  {
+    title: 'Current to yesterday',
+    body: 'Transactions arrive from your bank, card and payment feeds and are recorded as they come in, not weeks after month end.',
+  },
+  {
+    title: 'Every number explains itself',
+    body: 'Each posting names the rule and the source transaction behind it, so you can see why it landed where it did.',
+  },
+  {
+    title: 'Asked once, never again',
+    body: "What a rule can't decide is asked, not guessed. Approve the rule, and the same question doesn't come back.",
+  },
+  {
+    title: 'Nothing posted is edited',
+    body: 'Corrections are reversing entries, so the history is complete. Periods close on the schedule you set.',
+  },
+];
 ---
 
-<Page title="Product name">
-  <h1>Headline for the control</h1>
-  <p>One sentence on what the product does for whom.</p>
-  <form data-cmokit-convert="signup">
-    <input type="email" name="email" placeholder="you@example.com" required />
-    <button type="submit">Get early access</button>
-  </form>
-  <p class="thanks">Thanks. We'll be in touch.</p>
+<Page
+  title="CFOKit: your books, done for you"
+  description="CFOKit is an open source bookkeeper agent for your company. Run it yourself, help build it, or join the closed beta."
+>
+  <section class="flex max-w-reading-max flex-col gap-4 pt-10 pb-10 tablet:pt-[64px]">
+    <p class="text-label text-ink-muted">Open source bookkeeping, in closed beta</p>
+    <h1 class="font-display text-display-compact tablet:text-display">Your books, done for you.</h1>
+    <p class="text-title font-normal">
+      CFOKit is a bookkeeper agent that does the bookkeeper's and the controller's work for your
+      company. It's open source, so you can run it on your own machine, read every line, and take
+      everything it learns about your business with you.
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <Button variant="primary" href="/self-host/">Run it yourself</Button>
+      <Button href={repo}>View on GitHub</Button>
+    </div>
+  </section>
+
+  <section class="pb-10">
+    <Notice tone="warning" label="Early software">
+      CFOKit isn't ready to keep a company's real books yet. Try it alongside the bookkeeping you
+      already have, and tell us what breaks.
+    </Notice>
+  </section>
+
+  <section class="flex flex-wrap gap-6 pb-10">
+    <Card featured class="min-w-0 flex-[1_1_340px]">
+      <p class={label}>Run it yourself</p>
+      <h2 class="text-title">The whole product on your machine.</h2>
+      <p>Apache 2.0, with no cloud account and no signup. You need Docker and nothing else.</p>
+      <pre class="rounded-sm bg-sunken px-4 py-3 text-body break-words whitespace-pre-wrap"><code>docker compose up -d --wait</code></pre>
+      <Button href="/self-host/" class="self-start">See how to self-host</Button>
+    </Card>
+
+    <Card class="min-w-0 flex-[1_1_340px]">
+      <p class={label}>Build it with us</p>
+      <h2 class="text-title">Add your bank, your state, your fix.</h2>
+      <p>
+        Banks, payment providers and state compliance rules plug in behind stable extension points,
+        so a contribution lands without a rewrite.
+      </p>
+      <Button href={`${repo}/blob/main/CONTRIBUTING.md`} class="self-start">How to contribute</Button>
+    </Card>
+
+    <Card id="beta" class="min-w-0 flex-[1_1_340px]">
+      <p class={label}>Closed beta</p>
+      <h2 class="text-title">Want in when it's ready?</h2>
+      <p>We're opening CFOKit to a small group of companies first. Leave your email and we'll be in touch.</p>
+      <form data-cmokit-convert="beta_signup" class="flex flex-col gap-4">
+        <TextField
+          id="beta-email"
+          label="Work email"
+          type="email"
+          name="email"
+          autocomplete="email"
+          placeholder="you@company.com"
+          required
+        />
+        <Button variant="primary" type="submit" fullWidth>Join the closed beta</Button>
+      </form>
+      <p data-thanks role="status" class="text-body">Thanks. We'll email you when there's a place for your company.</p>
+    </Card>
+  </section>
+
+  <section class="flex flex-col gap-6 border-t border-rule py-10">
+    <h2 class={sectionHeading}>Books you can trust without checking them</h2>
+    <div class="grid gap-6 tablet:grid-cols-2 desktop:grid-cols-4">
+      {points.map((point) => (
+        <div class="flex flex-col gap-2 border-t-2 border-ink pt-4">
+          <h3 class="text-title">{point.title}</h3>
+          <p class="text-ink-muted">{point.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-6 border-t border-rule py-10">
+    <h2 class={sectionHeading}>Works in the Claude you already use</h2>
+    <ol class="flex max-w-reading-max flex-col gap-4">
+      <li class="flex gap-4">
+        <span class="font-display text-heading text-ochre">1</span>
+        <span><strong>Add the CFOKit plugin.</strong> It carries the bookkeeper skill.</span>
+      </li>
+      <li class="flex gap-4">
+        <span class="font-display text-heading text-ochre">2</span>
+        <span><strong>Point the connector at your CFOKit</strong> and sign in.</span>
+      </li>
+      <li class="flex gap-4">
+        <span class="font-display text-heading text-ochre">3</span>
+        <span><strong>Allow Claude in your company,</strong> then bring your books in.</span>
+      </li>
+    </ol>
+    <Button variant="link" href={`${repo}/blob/main/docs/how-to/connect-claude.md`} class="self-start px-0">How to connect Claude</Button>
+  </section>
+
+  <section class="flex flex-col items-start gap-4 border-t border-rule pt-10 pb-10 tablet:pb-[64px]">
+    <h2 class={sectionHeading}>Your company owns its books</h2>
+    <p class="max-w-reading-max">
+      The account belongs to your company, never to its accountant or its fractional CFO. They work
+      inside it at your invitation, and everything exports, any time.
+    </p>
+    <Button variant="primary" href="/self-host/">Run it yourself</Button>
+  </section>
 </Page>

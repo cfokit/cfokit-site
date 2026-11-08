@@ -1,0 +1,30 @@
+---
+// Privacy: a draft for legal review, not in effect. What it says about this site is what the site
+// does today (CMOkit's edge and PostHog); the rest is for counsel to write.
+import LegalPage from '../../components/LegalPage.astro';
+
+const sections = [
+  {
+    heading: 'Who we are',
+    body: 'Growth Science LLC operates the cfokit.ai website.',
+  },
+  {
+    heading: 'What this site collects',
+    body: 'This site counts visits and sign-ups with PostHog. A cookie, cmokit_id, recognizes your browser between visits for up to a year. When you join the closed beta or ask for release emails, we keep the email address you enter with that record.',
+  },
+  {
+    heading: 'What we use it for',
+    body: 'To email you about what you signed up for, and to learn which pages help people decide. [To add: legal basis, and that we do not sell your data, if that is the commitment.]',
+  },
+  {
+    heading: 'Your books',
+    body: 'This page covers the cfokit.ai website only.',
+  },
+  {
+    heading: 'Your choices',
+    body: '[To add: how to be removed from a list, how to ask for your data or its deletion, and a contact address.]',
+  },
+];
+---
+
+<LegalPage title="Privacy" description="How the cfokit.ai website handles your information. Draft, not in effect." sections={sections} />
